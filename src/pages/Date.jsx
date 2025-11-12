@@ -6,6 +6,7 @@ import WeekView from "../components/WeekView";
 import { supabase } from "../lib/supabase.client";
 import { toast } from "react-toastify";
 import { IoClose } from "react-icons/io5";
+import { useModal } from "../context/ModelContext";
 
 const DateCalander = () => {
   const [title, setTitle] = useState("");
@@ -15,10 +16,11 @@ const DateCalander = () => {
   const [colorTag, setColorTag] = useState("#4f46e5");
   const [reminder, setReminder] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [openModel, setOpenModel] = useState(false);
   const [eventData, setEventData] = useState([]);
   const [editEvent, setEditEvent] = useState(null);
   const [currentView, setCurrentView] = useState("month");
+
+  const { openModel, setOpenModel } = useModal();
 
   useEffect(() => {
     fetchEvents();

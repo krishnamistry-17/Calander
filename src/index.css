@@ -6,8 +6,9 @@
   height: 100%;
   max-width: 100%;
   background: #ffffff;
-  border: 1px solid #e5e7eb; /* gray-200 */
-  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid #e5e7eb; 
+  border-radius: 0.5rem; 
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   line-height: 1.25;
 }
@@ -28,6 +29,7 @@
   height: 3rem;
   margin-bottom: 0.5rem;
   padding: 0 0.5rem;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 
 .react-calendar__navigation button {
@@ -129,4 +131,9 @@ abbr[title] {
 .react-calendar__decade-view .react-calendar__tile,
 .react-calendar__century-view .react-calendar__tile {
   padding: 1rem 0.5rem;
+}
+
+.days-view-calander {
+  width: 100%;
+  height: 50%;
 }

@@ -21,8 +21,8 @@ const WeekView = ({ date, events = [], onEventClick = () => {} }) => {
     );
 
   return (
-    <div>
-      <div className="my-4 flex items-center gap-1">
+    <div >
+      <div className="my-4 flex items-center gap-1 px-4">
         <p className="text-[22px] font-semibold">
           {new Date(date).toLocaleDateString("en-US", { month: "long" })}
         </p>

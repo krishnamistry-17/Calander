@@ -1,18 +1,21 @@
 import Calendar from "react-calendar";
-import { useModal } from "../context/ModelContext";
 
-const DayView = ({ date, view, events = [], onEventClick = () => {} }) => {
+const DayView = ({
+  date,
+  onOpenAdd = () => {},
+  events = [],
+  onEventClick = () => {},
+}) => {
   const dayKey = new Date(date).toDateString();
-  const { openModel, setOpenModel } = useModal();
 
   const eventsForDay = events.filter(
     (e) => new Date(e.selectedDate).toDateString() === dayKey
   );
 
-  const handleModal = (date) => {
-    setOpenModel(true);
+  const handleModal = () => {
+    onOpenAdd();
   };
-  console.log(openModel);
+
   return (
     <div className="w-full h-full p-4">
       <div className="my-4">
@@ -23,14 +26,15 @@ const DayView = ({ date, view, events = [], onEventClick = () => {} }) => {
           {new Date(date).toLocaleDateString("en-US", { weekday: "long" })}
         </p>
       </div>
-      {eventsForDay.length === 0 ? (
-        <p className="text-gray-500">No events for this day.</p>
-      ) : (
+      <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
         <div className="space-y-2">
-          {eventsForDay.map((e) => (
-            <div key={e.id} className=" grid sm:grid-cols-2 grid-cols-1 gap-2">
+          {eventsForDay.length === 0 ? (
+            <p className="text-gray-500">No events for this day.</p>
+          ) : (
+            eventsForDay.map((e) => (
               <div
-                className="flex items-start justify-between rounded-md border border-gray-200 p-3 max-w-md h-fit"
+                key={e.id}
+                className="flex items-start justify-between rounded-md border border-gray-200 p-3 h-fit"
                 style={{ borderLeft: `4px solid ${e.colorTag}` }}
               >
                 <div className="pr-4">
@@ -51,13 +55,13 @@ const DayView = ({ date, view, events = [], onEventClick = () => {} }) => {
                   Edit
                 </button>
               </div>
-              <div>
-                <Calendar onClickDay={handleModal} />
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
-      )}
+        <div>
+          <Calendar onClickDay={handleModal} value={new Date(date)} />
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,14 +1,65 @@
 @import "tailwindcss";
 
+/* Theme tokens for the calendar */
+:root {
+  --cal-bg: #ffffff;
+  --cal-surface: #ffffff;
+  --cal-border: #e5e7eb; /* gray-200 */
+  --cal-text: #111827; /* gray-900 */
+  --cal-muted: #6b7280; /* gray-500 */
+  --cal-hover: #f3f4f6; /* gray-100 */
+  --cal-brand: #6c9afe; /* blue-600 */
+  --cal-brand-50: #eff6ff; /* blue-50 */
+  --cal-brand-100: #dbeafe; /* blue-100 */
+}
+
+.dark {
+  color-scheme: dark;
+  --cal-bg: #0b1220;
+  --cal-surface: #0f172a; /* slate-900 */
+  --cal-border: #334155;  /* slate-700 */
+  --cal-text: #e2e8f0;    /* slate-200 */
+  --cal-muted: #94a3b8;   /* slate-400 */
+  --cal-hover: #1f2937;   /* slate-800 */
+  --cal-brand: #6c9afe;
+  --cal-brand-50: #0b1220;
+  --cal-brand-100: #1e293b;
+}
+
+ .header-tabs {
+   border: 1px solid var(--cal-border);
+   background: linear-gradient(to bottom, rgba(255,255,255,.65), rgba(255,255,255,.42));
+   backdrop-filter: saturate(140%) blur(8px);
+   -webkit-backdrop-filter: saturate(140%) blur(8px);
+   border-radius: 14px;
+   box-shadow: 0 6px 20px rgba(0,0,0,.06);
+   margin: 10px 0 16px;
+ }
+ .dark .header-tabs {
+   background: linear-gradient(to bottom, rgba(15,23,42,.75), rgba(15,23,42,.6));
+   border-color: #334155;
+   box-shadow: 0 8px 24px rgba(0,0,0,.35);
+ }
+
+.html,
+body,
+#root {
+  min-height: 100vh;
+  background-color: var(--cal-bg);
+  color: var(--cal-text);
+  transition: background-color .2s ease, color .2s ease;
+}
 
 .react-calendar {
   width: 100%;
   height: 100%;
   max-width: 100%;
-  background: #ffffff;
-  border: 1px solid #e5e7eb; 
-  border-radius: 0.5rem; 
+  background: var(--cal-surface);
+  border: 1px solid var(--cal-border);
+  border-radius: 0.75rem; /* rounded-xl */
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  background-color: var(--cal-surface);
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   line-height: 1.25;
 }
@@ -36,13 +87,19 @@
   min-width: 2.5rem;
   background: none;
   border: none;
-  color: #111827; /* gray-900 */
+  color: var(--cal-text);
   padding: 0.5rem;
   border-radius: 0.375rem; /* rounded-md */
+  transition: background-color .2s ease, color .2s ease;
 }
-/* .react-calendar__navigation button:enabled:hover {
-  background: #f3f4f6; 
-} */
+.react-calendar__navigation__label {
+  font-weight: 600;
+  color: var(--cal-text);
+  letter-spacing: 0.2px;
+}
+.react-calendar__navigation button:enabled:hover {
+  background: var(--cal-hover);
+}
 .react-calendar__navigation button:disabled {
   color: #9ca3af; /* gray-400 */
 }
@@ -56,8 +113,8 @@
   text-align: center;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 0.75rem; 
-  color: #6b7280; /* gray-500 */
+  font-size: 0.75rem;
+  color: var(--cal-muted);
 }
 .react-calendar__month-view__weekdays__weekday {
   padding: 0.5rem;
@@ -71,38 +128,59 @@ abbr[title] {
   
 }
 
+/* Force a neat grid for month view with gaps */
+.react-calendar__month-view__days {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
 .react-calendar__tile {
-  text-align: center;
-  padding: 39px 4px;
+  text-align: left;
+  padding: 0.5rem;
   background: none;
   border: 0;
   border-radius: 0.375rem; /* rounded-md */
+  transition: background-color .2s ease, box-shadow .2s ease, transform .05s ease;
+  position: relative;
+  min-height: 90px; /* good default height for month cells */
 }
-/* .react-calendar__tile:enabled:hover {
-  background: #6b98f4; 
-} */
-.react-calendar__tile--now {  
-  background: #a1c5f4;  
- 
+.react-calendar__tile:enabled:hover {
+  background: var(--cal-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 1px 6px rgba(0,0,0,.06);
+}
+.react-calendar__tile:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--cal-brand-100);
+}
+.react-calendar__tile--now {
+  background: var(--cal-brand-50);
+}
+.react-calendar__tile--now::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 10px;
+  border: 1.5px dashed var(--cal-brand);
+  pointer-events: none;
 }
 .react-calendar__tile--active {
-  /* background: #2563eb;  */
+  background: var(--cal-brand);
   color: #ffffff;
- 
 }
 .react-calendar__tile--hasActive {
-  background: #dbeafe; 
-  
+  background: var(--cal-brand-100);
 }
 .react-calendar__tile--range {
-  /* background: #bfdbfe;  */
-  color: #1f2937; 
+  background: var(--cal-brand-100);
+  color: #1f2937;
 }
-/* .react-calendar__tile--rangeStart,
+.react-calendar__tile--rangeStart,
 .react-calendar__tile--rangeEnd {
-  background: #2563eb; 
+  background: var(--cal-brand);
   color: #ffffff;
-} */
+}
 
 .react-calendar {
   border-collapse: collapse;
@@ -110,17 +188,18 @@ abbr[title] {
 }
 
 .react-calendar__month-view__days__day {
-  border: 1px solid #d1d5db;
-  border-radius: 0px; 
+  border: 1px solid var(--cal-border);
+  border-radius: 0px;
 }
 .react-calendar__year-view .react-calendar__tile {
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--cal-border);
   border-radius: 0px;
-  padding: 1px 1px
+  padding: 6px 6px;
 }
-.react-calendar__year-view .react-calendar__tile --active {
-  background: #2563eb; 
-} 
+.react-calendar__year-view .react-calendar__tile--active {
+  background: var(--cal-brand);
+  color: #ffffff;
+}
 
 
 .react-calendar__month-view__days__day--neighboringMonth {
@@ -131,6 +210,36 @@ abbr[title] {
 .react-calendar__decade-view .react-calendar__tile,
 .react-calendar__century-view .react-calendar__tile {
   padding: 1rem 0.5rem;
+}
+
+/* Event chips inside month cells */
+.event-item {
+  display: block;
+  color: #ffffff;
+  font-size: 11px;
+  line-height: 1.2;
+  border-radius: 9999px;
+  margin-top: 4px;
+  padding: 3px 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0,0,0,.12);
+}
+.dark .event-item {
+  color: #ffffff;
+}
+/* cap list height and allow scroll inside day tile */
+.react-calendar__month-view__days .react-calendar__tile > div {
+  max-height: 3.5rem;
+  overflow: auto;
+}
+.react-calendar__month-view__days .react-calendar__tile > div::-webkit-scrollbar {
+  width: 6px;
+}
+.react-calendar__month-view__days .react-calendar__tile > div::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 9999px;
 }
 
 .days-view-calander {

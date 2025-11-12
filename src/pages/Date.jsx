@@ -20,7 +20,7 @@ const DateCalander = () => {
   const [editEvent, setEditEvent] = useState(null);
   const [currentView, setCurrentView] = useState("month");
 
-  const { openModel, setOpenModel } = useModal();
+  const { openModel, setOpenModel, setModalData } = useModal();
 
   useEffect(() => {
     fetchEvents();
@@ -40,6 +40,7 @@ const DateCalander = () => {
     setSelectedDate(date);
     setOpenModel(true);
     setEditEvent(null);
+    setModalData(null);
     setTitle("");
     setDescription("");
     setStartTime("");
@@ -68,6 +69,7 @@ const DateCalander = () => {
       return;
     }
     setEventData([...eventData, ...data]);
+    setModalData({ ...data[0], date: selectedDate });
     // setEditEvent(data[0]);
     setOpenModel(false);
     toast.success("Data saved successfully");
@@ -103,6 +105,7 @@ const DateCalander = () => {
       )
     );
     setEditEvent(null);
+    setModalData({ ...updatedEvent, date: selectedDate });
     setOpenModel(false);
     toast.success("Event updated successfully");
   };
@@ -127,6 +130,7 @@ const DateCalander = () => {
       prev.filter((event) => Number(event.id) !== Number(editEvent.id))
     );
     setEditEvent(null);
+    setModalData(null);
     setOpenModel(false);
     toast.success("Event deleted successfully");
   };
@@ -145,8 +149,25 @@ const DateCalander = () => {
 
   return (
     <div className=" z-0">
-      <div className="  bg-white flex flex-col p-4">
-        <Header activeView={currentView} onChangeView={setCurrentView} />
+      <div className="  bg-white dark:bg-slate-900 flex flex-col">
+        <Header
+          activeView={currentView}
+          onChangeView={setCurrentView}
+          events={eventData}
+          onOpenAdd={() => {
+            const today = new Date();
+            setSelectedDate(today);
+            setEditEvent(null);
+            setModalData(null);
+            setTitle("");
+            setDescription("");
+            setStartTime("");
+            setEndTime("");
+            setColorTag("#4f46e5");
+            setReminder(false);
+            setOpenModel(true);
+          }}
+        />
         <div className="w-full flex-1">
           {currentView === "day" && (
             <DayView
@@ -154,6 +175,19 @@ const DateCalander = () => {
               events={eventData}
               view={currentView === "day" ? "day" : "week"}
               onEventClick={openEditModal}
+              onOpenAdd={() => {
+                const today = new Date();
+                setSelectedDate(today);
+                setEditEvent(null);
+                setModalData(null);
+                setTitle("");
+                setDescription("");
+                setStartTime("");
+                setEndTime("");
+                setColorTag("#4f46e5");
+                setReminder(false);
+                setOpenModel(true);
+              }}
             />
           )}
           {currentView === "week" && (
@@ -179,7 +213,10 @@ const DateCalander = () => {
                       date.toDateString()
                   );
                   return eventsForDay.length > 0 ? (
-                    <div className="flex flex-col mt-1">
+                    <div
+                      className="flex flex-col mt-1 space-y-3 overflow-y-auto  "
+                      style={{ scrollBarWidth: "none" }}
+                    >
                       {eventsForDay.map((event, idx) => (
                         <div
                           key={idx}
@@ -193,9 +230,9 @@ const DateCalander = () => {
                             className="h-2 w-2 rounded-full mb-1"
                             style={{ backgroundColor: event.colorTag }}
                           ></span>
-                          <p className="text-xs cursor-pointer hover:underline">
+                          <p className="text-xs cursor-pointer hover:underline ">
                             <span
-                              className={` w-full py-1 px-2 rounded-md`}
+                              className={` w-full py-1 px-2  rounded-md`}
                               style={{ backgroundColor: event.colorTag }}
                             >
                               {event.title}
@@ -218,7 +255,7 @@ const DateCalander = () => {
             className=" absolute inset-0 bg-black/40 backdrop:blur-[1px]"
             onClick={() => setOpenModel(false)}
           ></div>
-          <div className=" relative w-full max-w-lg bg-white rounded-xl shadow-2xl  ring-back/5">
+          <div className=" relative w-full max-w-lg bg-white dark:bg-slate-800 rounded-xl shadow-2xl  ring-back/5 ">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -232,7 +269,7 @@ const DateCalander = () => {
             >
               <div className=" flex items-start justify-between">
                 <div className="flex flex-1 flex-col">
-                  <label className="text-sm font-medium text-gray-700">
+                  <label className="text-sm font-medium text-gray-700 dark:text-slate-200">
                     Title
                   </label>
                   <input
@@ -240,18 +277,18 @@ const DateCalander = () => {
                     onChange={(e) => setTitle(e.target.value)}
                     type="text"
                     placeholder="Title"
-                    className="mt-1 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
+                    className="mt-1 w-full p-2 rounded-md border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-0"
                   />
                 </div>
                 <IoClose
-                  className=" cursor-pointer text-xl"
+                  className=" cursor-pointer text-xl text-slate-600 dark:text-slate-300"
                   onClick={() => setOpenModel(false)}
                   aria-label="Close"
                 />
               </div>
 
               <div className=" flex flex-col mt-4">
-                <label className="text-sm font-medium text-gray-700">
+                <label className="text-sm font-medium text-gray-700 dark:text-slate-200">
                   Description
                 </label>
                 <textarea
@@ -259,41 +296,41 @@ const DateCalander = () => {
                   rows={4}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Description"
-                  className="mt-1 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
+                  className="mt-1 w-full p-2 rounded-md border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-0"
                 ></textarea>
               </div>
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className=" flex flex-col gap-2">
-                  <label className="text-sm font-medium text-gray-700">
+                  <label className="text-sm font-medium text-gray-700 dark:text-slate-200">
                     Start Time
                   </label>
                   <input
                     type="time"
-                    className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
+                    className="w-full p-2 rounded-md border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-0"
                     value={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
                   />
                 </div>
                 <div className=" flex flex-col gap-2 ">
-                  <label className="text-sm font-medium text-gray-700">
+                  <label className="text-sm font-medium text-gray-700 dark:text-slate-200">
                     End Time
                   </label>
                   <input
                     type="time"
-                    className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
+                    className="w-full p-2 rounded-md border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-0"
                     value={endTime}
                     onChange={(e) => setEndTime(e.target.value)}
                   />
                 </div>
               </div>
               <div className="mt-4">
-                <label className="text-sm font-medium text-gray-700">
+                <label className="text-sm font-medium text-gray-700 dark:text-slate-200">
                   Color Tag
                 </label>
                 <div className="flex items-center gap-2 mt-1">
                   <input
                     type="color"
-                    className="w-28 h-10 p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
+                    className="w-28 h-10 p-2 rounded-md border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-0"
                     value={colorTag}
                     onChange={(e) => setColorTag(e.target.value)}
                   />
@@ -310,9 +347,12 @@ const DateCalander = () => {
                   type="checkbox"
                   checked={reminder}
                   onChange={(e) => setReminder(e.target.checked)}
-                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="h-4 w-4 rounded border-gray-300 dark:border-slate-700 text-blue-600 focus:ring-blue-500"
                 />
-                <label htmlFor="reminder" className="text-sm text-gray-700">
+                <label
+                  htmlFor="reminder"
+                  className="text-sm text-gray-700 dark:text-slate-200"
+                >
                   Reminder
                 </label>
               </div>

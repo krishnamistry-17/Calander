@@ -142,7 +142,7 @@ const DateCalander = () => {
   };
 
   return (
-    <div>
+    <div className=" z-0">
       <div className="  bg-white flex flex-col p-4">
         <Header activeView={currentView} onChangeView={setCurrentView} />
         <div className="w-full flex-1">
@@ -167,7 +167,7 @@ const DateCalander = () => {
               view={currentView === "year" ? "year" : "month"}
               value={selectedDate}
               onChange={setSelectedDate}
-              className="w-full h-full p-4 rounded-md"
+              className="w-full h-full p-4 rounded-md my-4"
               onClickDay={handleDateChange}
               tileContent={({ date, view }) => {
                 if (view === "month") {
@@ -211,8 +211,12 @@ const DateCalander = () => {
       </div>
 
       {openModel && selectedDate && (
-        <div className=" bg-white fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-fit">
-          <div className=" flex flex-col  gap-4 justify-center items-center border border-gray-300 rounded-md p-4 space-y-2 w-full">
+        <div className=" fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className=" absolute inset-0 bg-black/40 backdrop:blur-[1px]"
+            onClick={() => setOpenModel(false)}
+          ></div>
+          <div className=" relative w-full max-w-lg bg-white rounded-xl shadow-2xl  ring-back/5">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -222,76 +226,96 @@ const DateCalander = () => {
                   handleSavedData();
                 }
               }}
-              className="w-full p-2"
+              className="w-full p-6"
             >
-              <div className=" flex flex-col gap-2">
-                <div className="flex justify-between">
-                  <label>Title</label>
-                  <IoClose
-                    className=" cursor-pointer text-xl"
-                    onClick={() => setOpenModel(false)}
+              <div className=" flex items-start justify-between">
+                <div className="flex flex-1 flex-col">
+                  <label className="text-sm font-medium text-gray-700">
+                    Title
+                  </label>
+                  <input
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    type="text"
+                    placeholder="Title"
+                    className="mt-1 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
                   />
                 </div>
-                <input
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  type="text"
-                  placeholder="Title"
-                  className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
+                <IoClose
+                  className=" cursor-pointer text-xl"
+                  onClick={() => setOpenModel(false)}
+                  aria-label="Close"
                 />
               </div>
-              <div className=" flex flex-col gap-2">
-                <label>Description</label>
-                <input
-                  type="text"
-                  placeholder="Description"
-                  className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
+
+              <div className=" flex flex-col mt-4">
+                <label className="text-sm font-medium text-gray-700">
+                  Description
+                </label>
+                <textarea
                   value={description}
+                  rows={4}
                   onChange={(e) => setDescription(e.target.value)}
-                />
+                  placeholder="Description"
+                  className="mt-1 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
+                ></textarea>
               </div>
-              <div className=" flex flex-col gap-2">
-                <label>Start Time</label>
-                <input
-                  type="time"
-                  className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
-                  value={startTime}
-                  onChange={(e) => setStartTime(e.target.value)}
-                />
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className=" flex flex-col gap-2">
+                  <label className="text-sm font-medium text-gray-700">
+                    Start Time
+                  </label>
+                  <input
+                    type="time"
+                    className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
+                    value={startTime}
+                    onChange={(e) => setStartTime(e.target.value)}
+                  />
+                </div>
+                <div className=" flex flex-col gap-2 ">
+                  <label className="text-sm font-medium text-gray-700">
+                    End Time
+                  </label>
+                  <input
+                    type="time"
+                    className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
+                    value={endTime}
+                    onChange={(e) => setEndTime(e.target.value)}
+                  />
+                </div>
               </div>
-              <div className=" flex flex-col gap-2">
-                <label>End Time</label>
-                <input
-                  type="time"
-                  className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
-                  value={endTime}
-                  onChange={(e) => setEndTime(e.target.value)}
-                />
-              </div>
-              <div>
-                <label>Color Tag</label>
-                <div className="flex items-center gap-2">
+              <div className="mt-4">
+                <label className="text-sm font-medium text-gray-700">
+                  Color Tag
+                </label>
+                <div className="flex items-center gap-2 mt-1">
                   <input
                     type="color"
-                    className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
+                    className="w-28 h-10 p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-0"
                     value={colorTag}
                     onChange={(e) => setColorTag(e.target.value)}
                   />
                   <span
-                    className="h-2 w-2 rounded-full"
+                    className="h-3 w-3 rounded-full inline-block"
                     style={{ backgroundColor: colorTag }}
                   ></span>
                 </div>
               </div>
-              <div className=" flex items-center gap-2 pt-4">
+
+              <div className=" mt-4 flex items-center gap-2">
                 <input
+                  id="reminder"
                   type="checkbox"
                   checked={reminder}
                   onChange={(e) => setReminder(e.target.checked)}
+                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
-                <label>Reminder</label>
+                <label htmlFor="reminder" className="text-sm text-gray-700">
+                  Reminder
+                </label>
               </div>
-              <div className=" flex justify-center items-center mt-4 gap-2">
+
+              <div className=" grid sm:grid-cols-2 grid-cols-1 mt-4 gap-2">
                 {!editEvent ? (
                   <button
                     className="bg-green-600 text-white w-full p-2 rounded-sm "

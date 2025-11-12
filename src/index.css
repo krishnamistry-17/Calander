@@ -116,6 +116,9 @@ abbr[title] {
   border-radius: 0px;
   padding: 1px 1px
 }
+.react-calendar__year-view .react-calendar__tile --active {
+  background: #2563eb; 
+} 
 
 
 .react-calendar__month-view__days__day--neighboringMonth {

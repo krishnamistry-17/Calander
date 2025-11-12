@@ -30,7 +30,7 @@ const WeekView = ({ date, events = [], onEventClick = () => {} }) => {
           {new Date(date).toLocaleDateString("en-US", { year: "numeric" })}
         </p>
       </div>
-      <div className="w-full h-full p-4 grid xl:grid-cols-7 md:grid-cols-5  grid-cols-1 gap-2">
+      <div className="w-full h-full p-4 grid  md:grid-cols-5  grid-cols-1 gap-2">
         {days.map((d) => (
           <div
             key={d.toISOString()}

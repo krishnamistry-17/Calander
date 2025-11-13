@@ -29,7 +29,7 @@ const DayView = ({
       <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
         <div className="space-y-2">
           {eventsForDay.length === 0 ? (
-            <p className="text-gray-500">No events for this day.</p>
+            <p >No events for this day.</p>
           ) : (
             eventsForDay.map((e) => (
               <div
@@ -39,11 +39,11 @@ const DayView = ({
               >
                 <div className="pr-4">
                   <div className="font-medium">{e.title}</div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm">
                     {e.startTime || "--"} - {e.endTime || "--"}
                   </div>
                   {e.description ? (
-                    <div className="text-sm text-gray-700 mt-1">
+                    <div className="text-sm  mt-1">
                       {e.description}
                     </div>
                   ) : null}

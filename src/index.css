@@ -210,8 +210,8 @@ abbr[title] {
   content: "";
   position: absolute;
   inset: 4px;
-  border-radius: 10px;
-  border: 1.5px dashed var(--cal-brand);
+  /* border-radius: 10px;
+  border: 1.5px dashed var(--cal-brand); */
   pointer-events: none;
 }
 .react-calendar__tile--active {

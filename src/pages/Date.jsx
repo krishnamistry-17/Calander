@@ -149,7 +149,7 @@ const DateCalander = () => {
 
   return (
     <div className=" z-0">
-      <div className="  bg-white dark:bg-slate-900 flex flex-col">
+      <div className="  bg-transparent flex flex-col">
         <Header
           activeView={currentView}
           onChangeView={setCurrentView}
@@ -252,10 +252,10 @@ const DateCalander = () => {
       {openModel && selectedDate && (
         <div className=" fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
-            className=" absolute inset-0 bg-black/40 backdrop:blur-[1px]"
+            className=" absolute inset-0 bg-black/40 backdrop-blur-[1px]"
             onClick={() => setOpenModel(false)}
           ></div>
-          <div className=" relative w-full max-w-lg bg-white dark:bg-slate-800 rounded-xl shadow-2xl  ring-back/5 ">
+          <div className=" relative w-full max-w-lg themed-surface rounded-xl shadow-2xl">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -269,7 +269,7 @@ const DateCalander = () => {
             >
               <div className=" flex items-start justify-between">
                 <div className="flex flex-1 flex-col">
-                  <label className="text-sm font-medium text-gray-700 dark:text-slate-200">
+                  <label className="text-sm font-medium themed-label">
                     Title
                   </label>
                   <input
@@ -277,18 +277,18 @@ const DateCalander = () => {
                     onChange={(e) => setTitle(e.target.value)}
                     type="text"
                     placeholder="Title"
-                    className="mt-1 w-full p-2 rounded-md border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-0"
+                    className="mt-1 w-full p-2 themed-field focus:outline-none focus:ring-0"
                   />
                 </div>
                 <IoClose
-                  className=" cursor-pointer text-xl text-slate-600 dark:text-slate-300"
+                  className=" cursor-pointer text-xl"
                   onClick={() => setOpenModel(false)}
                   aria-label="Close"
                 />
               </div>
 
               <div className=" flex flex-col mt-4">
-                <label className="text-sm font-medium text-gray-700 dark:text-slate-200">
+                <label className="text-sm font-medium themed-label">
                   Description
                 </label>
                 <textarea
@@ -296,41 +296,41 @@ const DateCalander = () => {
                   rows={4}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Description"
-                  className="mt-1 w-full p-2 rounded-md border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-0"
+                  className="mt-1 w-full p-2 themed-field focus:outline-none focus:ring-0"
                 ></textarea>
               </div>
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className=" flex flex-col gap-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-slate-200">
+                  <label className="text-sm font-medium themed-label">
                     Start Time
                   </label>
                   <input
                     type="time"
-                    className="w-full p-2 rounded-md border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-0"
+                    className="w-full p-2 themed-field focus:outline-none focus:ring-0"
                     value={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
                   />
                 </div>
                 <div className=" flex flex-col gap-2 ">
-                  <label className="text-sm font-medium text-gray-700 dark:text-slate-200">
+                  <label className="text-sm font-medium themed-label">
                     End Time
                   </label>
                   <input
                     type="time"
-                    className="w-full p-2 rounded-md border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-0"
+                    className="w-full p-2 themed-field focus:outline-none focus:ring-0"
                     value={endTime}
                     onChange={(e) => setEndTime(e.target.value)}
                   />
                 </div>
               </div>
               <div className="mt-4">
-                <label className="text-sm font-medium text-gray-700 dark:text-slate-200">
+                <label className="text-sm font-medium themed-label">
                   Color Tag
                 </label>
                 <div className="flex items-center gap-2 mt-1">
                   <input
                     type="color"
-                    className="w-28 h-10 p-2 rounded-md border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-0"
+                    className="w-28 h-10 p-2 themed-field focus:outline-none focus:ring-0"
                     value={colorTag}
                     onChange={(e) => setColorTag(e.target.value)}
                   />
@@ -347,12 +347,9 @@ const DateCalander = () => {
                   type="checkbox"
                   checked={reminder}
                   onChange={(e) => setReminder(e.target.checked)}
-                  className="h-4 w-4 rounded border-gray-300 dark:border-slate-700 text-blue-600 focus:ring-blue-500"
+                  className="h-4 w-4 themed-checkbox rounded text-blue-600 focus:ring-blue-500"
                 />
-                <label
-                  htmlFor="reminder"
-                  className="text-sm text-gray-700 dark:text-slate-200"
-                >
+                <label htmlFor="reminder" className="text-sm themed-label">
                   Reminder
                 </label>
               </div>

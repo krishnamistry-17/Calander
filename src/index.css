@@ -26,13 +26,59 @@
   --cal-brand-100: #1e293b;
 }
 
+/* Themed search/input elements */
+.themed-input {
+  background-color: var(--cal-bg);
+  color: var(--cal-text);
+  border: 1px solid var(--cal-border);
+  border-radius: 8px;
+}
+.themed-input input::placeholder {
+  color: var(--cal-muted);
+}
+.themed-icon {
+  color: var(--cal-muted);
+}
+.themed-dropdown {
+  background-color: var(--cal-bg);
+  border: 1px solid var(--cal-border);
+  color: var(--cal-text);
+}
+.themed-dropdown .item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.themed-dropdown .item:hover {
+  background-color: var(--cal-hover);
+}
+
+/* Themed modal surface and fields */
+.themed-surface {
+  background-color: var(--cal-bg);
+  color: var(--cal-text);
+  border: 1px solid var(--cal-border);
+}
+.themed-label {
+  color: var(--cal-text);
+}
+.themed-field {
+  background-color: var(--cal-bg);
+  color: var(--cal-text);
+  border: 1px solid var(--cal-border);
+  border-radius: 8px;
+}
+.themed-field::placeholder {
+  color: var(--cal-muted);
+}
+.themed-checkbox {
+  border: 1px solid var(--cal-border);
+}
+
  .header-tabs {
    border: 1px solid var(--cal-border);
-   background: linear-gradient(to bottom, rgba(255,255,255,.65), rgba(255,255,255,.42));
-   backdrop-filter: saturate(140%) blur(8px);
-   -webkit-backdrop-filter: saturate(140%) blur(8px);
+   background: #ffffff;
    border-radius: 14px;
-   box-shadow: 0 6px 20px rgba(0,0,0,.06);
+   box-shadow: 0 6px 18px rgba(0,0,0,.06);
    margin: 10px 0 16px;
  }
  .dark .header-tabs {
@@ -54,12 +100,12 @@ body,
   width: 100%;
   height: 100%;
   max-width: 100%;
-  background: var(--cal-surface);
+  background: var(--cal-bg);
   border: 1px solid var(--cal-border);
   border-radius: 0.75rem; /* rounded-xl */
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
-  background-color: var(--cal-surface);
+  background-color: var(--cal-bg);
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   line-height: 1.25;
 }
@@ -80,7 +126,10 @@ body,
   height: 3rem;
   margin-bottom: 0.5rem;
   padding: 0 0.5rem;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  background: var(--cal-bg);
+  border: 1px solid var(--cal-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.06);
 }
 
 .react-calendar__navigation button {

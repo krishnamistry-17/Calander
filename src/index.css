@@ -295,3 +295,8 @@ abbr[title] {
   width: 100%;
   height: 50%;
 }
+
+
+.react-flow__node react-flow__node-default selectable{
+  padding:5px
+}

@@ -1,3 +1,4 @@
+import { ReactFlowProvider } from "@xyflow/react";
 import DateCalander from "./pages/Date";
 import ERDaigram from "./pages/ERDaigram/ERDaigram";
 
@@ -6,7 +7,9 @@ function App() {
     <>
       <div>
         {/* <DateCalander /> */}
-        <ERDaigram />
+        <ReactFlowProvider>
+          <ERDaigram />
+        </ReactFlowProvider>
       </div>
     </>
   );

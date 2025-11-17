@@ -26,3 +26,5 @@ export const subFlowEdges = [
   { id: "eB1_B2", source: "B-1", target: "B-2" },
   { id: "eB1_B3", source: "B-1", target: "B-3" },
 ];
+
+export const uncontrolledFlowEdges = [{ id: "e12", source: "1", target: "2" }];

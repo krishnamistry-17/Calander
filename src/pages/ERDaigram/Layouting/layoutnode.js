@@ -142,3 +142,23 @@ export const subFlowNodes = [
     data: { label: "Node C" },
   },
 ];
+
+export const uncontrolledFlowNodes = [
+  {
+    id: "1",
+    type: "input",
+    data: { label: "Node 1" },
+    position: { x: 255, y: 25 },
+  },
+  {
+    id: "2",
+    data: { label: "Node 2" },
+    position: { x: 100, y: 125 },
+  },
+  {
+    id: "3",
+    type: "output",
+    data: { label: "Node 3" },
+    position: { x: 250, y: 250 },
+  },
+];

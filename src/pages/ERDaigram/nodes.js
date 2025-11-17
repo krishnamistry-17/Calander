@@ -111,3 +111,69 @@ export const initialNodes = [
     ...nodeDefaults,
   },
 ];
+
+export const nodes = [
+  {
+    id: "a",
+    type: "colorChooser",
+    data: { color: "red" },
+    position: { x: 250, y: 25 },
+  },
+  {
+    id: "b",
+    type: "colorChooser",
+    data: { color: "blue" },
+    position: { x: 100, y: 125 },
+  },
+  {
+    id: "c",
+    type: "colorChooser",
+    data: { color: "green" },
+    position: { x: 250, y: 250 },
+  },
+];
+
+export const ComputingNodes = [
+  {
+    type: "NumberInput",
+    id: "1",
+    data: { label: "Red", value: 255 },
+    position: { x: 0, y: 0 },
+  },
+  {
+    type: "NumberInput",
+    id: "2",
+    data: { label: "Green", value: 0 },
+    position: { x: 0, y: 100 },
+  },
+  {
+    type: "NumberInput",
+    id: "3",
+    data: { label: "Blue", value: 115 },
+    position: { x: 0, y: 200 },
+  },
+
+  {
+    type: "ColorPreview",
+    id: "color",
+    position: { x: 170, y: 50 },
+    data: { label: "Color", value: { r: 0, g: 0, b: 0 } },
+  },
+  {
+    type: "Lightness",
+    id: "lightness",
+    position: { x: 380, y: 75 },
+  },
+  {
+    id: "log-1",
+    type: "Log",
+    position: { x: 560, y: 0 },
+    data: { label: "Use black font", fontColor: "black" },
+  },
+  {
+    id: "log-2",
+    type: "Log",
+    position: { x: 560, y: 140 },
+    data: { label: "Use white font", fontColor: "white" },
+  },
+];

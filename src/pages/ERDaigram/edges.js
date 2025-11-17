@@ -59,3 +59,41 @@ export const initialEdges = [
     target: "1.4",
   },
 ];
+
+export const edges = [
+  {
+    id: "a-b",
+    source: "a",
+    target: "b",
+    type: "step",
+  },
+  {
+    id: "b-c",
+    source: "b",
+    target: "c",
+    type: "step",
+  },
+];
+
+export const computingEdges = [
+  { id: "1-color", source: "1", target: "color", targetHandle: "red" },
+  { id: "2-color", source: "2", target: "color", targetHandle: "green" },
+  { id: "3-color", source: "3", target: "color", targetHandle: "blue" },
+  {
+    id: "color-lightness",
+    source: "color",
+    target: "lightness",
+  },
+  {
+    id: "lightness-log-1",
+    source: "lightness",
+    sourceHandle: "light",
+    target: "log-1",
+  },
+  {
+    id: "lightness-log-2",
+    source: "lightness",
+    sourceHandle: "dark",
+    target: "log-2",
+  },
+];

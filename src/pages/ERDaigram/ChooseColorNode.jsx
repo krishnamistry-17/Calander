@@ -1,0 +1,24 @@
+import React from "react";
+import { Handle, Position } from "@xyflow/react";
+import useStore from "./store";
+
+function ChooseColorNode({ id, data }) {
+  const updateNodeColor = useStore((state) => state.updateNodeColor);
+
+  return (
+    <div style={{ backgroundColor: data.color, borderRadius: 10 }}>
+      <Handle type="target" position={Position.Top} />
+      <div style={{ padding: 3 }}>
+        <input
+          type="color"
+          defaultValue={data.color}
+          onChange={(evt) => updateNodeColor(id, evt.target.value)}
+          className="nodrag"
+        />
+      </div>
+      <Handle type="source" position={Position.Bottom} />
+    </div>
+  );
+}
+
+export default ChooseColorNode;
